@@ -1,4 +1,4 @@
-# Pizzaria Delícia README
+# Pizzaria Delícia
 
 ## Visão Geral
 
