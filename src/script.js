@@ -1,5 +1,7 @@
 
 let qtdPedidos = 1;
+let cart = [];
+let pizzaModal = 0;
 
 pizzaJson.map((item, index) => {
   const pizzaItem = document.querySelector('.models .pizza-item').cloneNode(true);
@@ -12,6 +14,7 @@ pizzaJson.map((item, index) => {
   pizzaItem.querySelector('a').addEventListener('click', (event) => {
     event.preventDefault();
     let key = event.target.closest('.pizza-item').getAttribute('index-Key')
+    pizzaModal = key;
 
     document.querySelector('.pizzaBig img').src = item.img;
     document.querySelector('.pizzaInfo h1').innerHTML = pizzaJson[key].name;
@@ -60,9 +63,21 @@ document.querySelector('.pizzaInfo--qtmenos').addEventListener('click', () => {
   document.querySelector('.pizzaInfo--qt').innerHTML = qtdPedidos;
 });
 
-document.querySelectorAll('.pizzaInfo--size').forEach((sizeSelected, index) => {
-  sizeSelected.addEventListener('click', (event) => {
+document.querySelectorAll('.pizzaInfo--size').forEach((sizeSelected) => {
+  sizeSelected.addEventListener('click', () => {
     document.querySelector('.pizzaInfo--size.selected').classList.remove('selected');
     sizeSelected.classList.add('selected');
   });
+});
+
+document.querySelector('.pizzaInfo--addButton').addEventListener('click', () => {
+  let size = parseInt(document.querySelector('.pizzaInfo--size.selected').getAttribute('data-key'));
+
+  cart.push({
+    id: pizzaJson[pizzaModal].id,
+    size,
+    qt: qtdPedidos
+  });
+
+  fechaModal();
 });
